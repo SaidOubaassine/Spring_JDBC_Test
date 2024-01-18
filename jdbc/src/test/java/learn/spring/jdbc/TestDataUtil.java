@@ -14,4 +14,12 @@ public class TestDataUtil {
                 .age(25)
                 .build();
     }
+    public static Student createTestStudentB(){
+        return Student.builder()
+                .id(1)
+                .name("Mohamed")
+                .country("France")
+                .age(22)
+                .build();
+    }
 }

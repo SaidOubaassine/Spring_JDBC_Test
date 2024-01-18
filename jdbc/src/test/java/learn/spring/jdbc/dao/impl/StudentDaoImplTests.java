@@ -40,4 +40,25 @@ public class StudentDaoImplTests {
                 eq(1)
         );
     }
+    @Test
+    public void testThatFindStudentsGeneratesCorrectSql(){
+        underTest.find();
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, country, age FROM students"),
+                ArgumentMatchers.<StudentDaoImpl.StudentRowMapper>any()
+        );
+    }
+    @Test
+    public void testThatUpdateStudentGeneratesCorrectSql(){
+        Student student = TestDataUtil.createTestStudentB();
+        underTest.update(1, student);
+        verify(jdbcTemplate).update(
+                eq("UPDATE students SET id = ?, name = ?,  country = ?, age = ? WHERE id = ?"),
+                eq(1),
+                eq("Mohamed"),
+                eq("France"),
+                eq(22),
+                eq(1)
+        );
+    }
 }

@@ -46,4 +46,23 @@ public class StudentDaoImpl implements StudentDao {
                     .build();
         }
     }
+    @Override
+    public List<Student> find(){
+        return jdbcTemplate.query(
+                "SELECT id, name, country, age FROM students",
+                new StudentRowMapper()
+        );
+    }
+
+    @Override
+    public void update(int id, Student student) {
+        jdbcTemplate.update(
+                "UPDATE students SET id = ?, name = ?,  country = ?, age = ? WHERE id = ?",
+                student.getId(),
+                student.getName(),
+                student.getCountry(),
+                student.getAge(),
+                id
+        );
+    }
 }
