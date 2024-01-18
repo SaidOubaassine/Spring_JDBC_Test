@@ -65,4 +65,12 @@ public class StudentDaoImpl implements StudentDao {
                 id
         );
     }
+
+    @Override
+    public void delete(int id) {
+        jdbcTemplate.update(
+                "DROP FROM students WHERE id = ?",
+                id
+        );
+    }
 }

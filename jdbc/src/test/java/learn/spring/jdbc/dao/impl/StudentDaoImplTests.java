@@ -61,4 +61,12 @@ public class StudentDaoImplTests {
                 eq(1)
         );
     }
+    @Test
+    public void testThatDeleteStudentGenerateCorrectSql(){
+        underTest.delete(1);
+        verify(jdbcTemplate).update(
+                eq("DROP FROM students WHERE id = ?"),
+                eq(1)
+        );
+    }
 }
