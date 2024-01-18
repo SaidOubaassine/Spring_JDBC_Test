@@ -4,6 +4,7 @@ import learn.spring.jdbc.TestDataUtil;
 import learn.spring.jdbc.domain.Student;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -28,6 +29,15 @@ public class StudentDaoImplTests {
                 eq("Said"),
                 eq("Maroc"),
                 eq(25)
+        );
+    }
+    @Test
+    public void testThatFindOneStudentGeneratesCorrectSql(){
+        underTest.findOne(1);
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, country, age FROM students WHERE id = ? LIMIT 1"),
+                ArgumentMatchers.<StudentDaoImpl.StudentRowMapper>any(),
+                eq(1)
         );
     }
 }

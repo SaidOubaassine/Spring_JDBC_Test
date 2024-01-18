@@ -27,5 +27,6 @@ public class JdbcApplication implements CommandLineRunner{
 		StudentDaoImpl studentDaoIpml = new StudentDaoImpl(restTemplate);
 		Student student = new Student(1, "Said", "Maroc", 25);
 		studentDaoIpml.create(student);
+		System.out.println(studentDaoIpml.findOne(1));
 	}
 }

@@ -3,7 +3,13 @@ package learn.spring.jdbc.dao.impl;
 import learn.spring.jdbc.dao.StudentDao;
 import learn.spring.jdbc.domain.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class StudentDaoImpl implements StudentDao {
@@ -20,5 +26,24 @@ public class StudentDaoImpl implements StudentDao {
                 student.getCountry(),
                 student.getAge()
         );
+    }
+
+    @Override
+    public Optional<Student> findOne(int id){
+        List<Student> results = jdbcTemplate.query(
+                "SELECT id, name, country, age FROM students WHERE id = ? LIMIT 1",
+                new StudentRowMapper(), id);
+        return results.stream().findFirst();
+    }
+    public static class StudentRowMapper implements RowMapper<Student>{
+        @Override
+        public Student mapRow(ResultSet rs, int rowNum) throws SQLException{
+            return Student.builder()
+                    .id(rs.getInt("id"))
+                    .name(rs.getString("name"))
+                    .country(rs.getString("country"))
+                    .age(rs.getInt("age"))
+                    .build();
+        }
     }
 }
