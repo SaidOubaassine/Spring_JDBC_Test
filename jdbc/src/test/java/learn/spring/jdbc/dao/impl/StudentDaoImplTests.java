@@ -54,7 +54,7 @@ public class StudentDaoImplTests {
         underTest.update(1, student);
         verify(jdbcTemplate).update(
                 eq("UPDATE students SET id = ?, name = ?,  country = ?, age = ? WHERE id = ?"),
-                eq(1),
+                eq(2),
                 eq("Mohamed"),
                 eq("France"),
                 eq(22),
@@ -65,7 +65,7 @@ public class StudentDaoImplTests {
     public void testThatDeleteStudentGenerateCorrectSql(){
         underTest.delete(1);
         verify(jdbcTemplate).update(
-                eq("DROP FROM students WHERE id = ?"),
+                eq("DELETE FROM students WHERE id = ?"),
                 eq(1)
         );
     }

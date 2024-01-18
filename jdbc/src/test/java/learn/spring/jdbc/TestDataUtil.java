@@ -16,10 +16,18 @@ public class TestDataUtil {
     }
     public static Student createTestStudentB(){
         return Student.builder()
-                .id(1)
+                .id(2)
                 .name("Mohamed")
                 .country("France")
                 .age(22)
+                .build();
+    }
+    public static Student createTestStudentC(){
+        return Student.builder()
+                .id(3)
+                .name("Jaime")
+                .country("USA")
+                .age(20)
                 .build();
     }
 }
