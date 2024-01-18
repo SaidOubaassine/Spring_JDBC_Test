@@ -55,4 +55,12 @@ public class StudentDaoImplIntegrationTests {
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(studentA);
     }
+    @Test void testThatStudentCanBeDeleted(){
+        Student studentA = TestDataUtil.createTestStudentA();
+        underTest.create(studentA);
+        underTest.delete(studentA.getId());
+        Optional<Student> result = underTest.findOne(studentA.getId());
+        assertThat(result).isEmpty();
+    }
 }
+
